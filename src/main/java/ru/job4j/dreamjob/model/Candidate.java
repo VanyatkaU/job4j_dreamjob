@@ -15,16 +15,27 @@ public class Candidate {
 
     private int cityId;
 
+    private int fileId;
+
     public Candidate() {
     }
 
     public Candidate(int id, String name,
-                     String description, LocalDateTime creationDate, int cityId) {
+                     String description, LocalDateTime creationDate,
+                     int cityId, int fileId) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.creationDate = creationDate;
         this.cityId = cityId;
+    }
+
+    public int getFileId() {
+        return fileId;
+    }
+
+    public void setFileId(int fileId) {
+        this.fileId = fileId;
     }
 
     public int getCityId() {

@@ -3,11 +3,14 @@ package ru.job4j.dreamjob.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import ru.job4j.dreamjob.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.dreamjob.service.CityService;
 import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.VacancyService;
 
 import javax.annotation.concurrent.ThreadSafe;
+import java.io.IOException;
 
 @ThreadSafe
 @Controller
@@ -36,8 +39,14 @@ public class VacancyController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Vacancy vacancy) {
-        vacancyService.save(vacancy);
+    public String create(@ModelAttribute Vacancy vacancy,
+                         @RequestParam MultipartFile file) {
+        try {
+            vacancyService.update(vacancy,
+                    new FileDto(file.getOriginalFilename(), file.getBytes()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         return "redirect:/vacancies";
     }
 
@@ -54,8 +63,15 @@ public class VacancyController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Vacancy vacancy, Model model) {
-        var isUpdated = vacancyService.update(vacancy);
+    public String update(@ModelAttribute Vacancy vacancy,
+                         @RequestParam MultipartFile file, Model model) {
+        boolean isUpdated = false;
+        try {
+            isUpdated = vacancyService.update(vacancy,
+                    new FileDto(file.getOriginalFilename(), file.getBytes()));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         if (!isUpdated) {
             model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
             return "errors/404";
