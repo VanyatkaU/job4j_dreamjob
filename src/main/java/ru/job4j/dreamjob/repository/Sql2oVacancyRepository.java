@@ -1,8 +1,8 @@
-package ru.job4j.dreamjob.dreamjob.repository;
+package ru.job4j.dreamjob.repository;
 
 import org.sql2o.Sql2o;
-import ru.job4j.dreamjob.model.Vacancy;
-import ru.job4j.dreamjob.repository.VacancyRepository;
+import ru.job4j.model.Vacancy;
+import ru.job4j.repository.VacancyRepository;
 
 import java.util.Collection;
 import java.util.Optional;
