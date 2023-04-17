@@ -1,7 +1,7 @@
-package ru.job4j.dreamjob.dreamjob.repository;
+package ru.job4j.dreamjob.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.job4j.dreamjob.dreamjob.model.File;
+import ru.job4j.dreamjob.model.File;
 
 import java.util.Map;
 import java.util.Optional;

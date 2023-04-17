@@ -1,6 +1,6 @@
-package ru.job4j.dreamjob.dreamjob.repository;
+package ru.job4j.dreamjob.repository;
 
-import ru.job4j.dreamjob.dreamjob.model.File;
+import ru.job4j.dreamjob.model.File;
 
 import java.util.Optional;
 

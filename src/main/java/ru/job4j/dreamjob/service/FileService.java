@@ -1,7 +1,7 @@
-package ru.job4j.dreamjob.dreamjob.service;
+package ru.job4j.dreamjob.service;
 
-import ru.job4j.dreamjob.dreamjob.dto.FileDto;
-import ru.job4j.dreamjob.dreamjob.model.File;
+import ru.job4j.dreamjob.dto.FileDto;
+import ru.job4j.dreamjob.model.File;
 
 import java.util.Optional;
 

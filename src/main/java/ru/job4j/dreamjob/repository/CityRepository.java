@@ -1,6 +1,6 @@
-package ru.job4j.dreamjob.dreamjob.repository;
+package ru.job4j.dreamjob.repository;
 
-import ru.job4j.dreamjob.dreamjob.model.City;
+import ru.job4j.dreamjob.model.City;
 
 import java.util.Collection;
 
