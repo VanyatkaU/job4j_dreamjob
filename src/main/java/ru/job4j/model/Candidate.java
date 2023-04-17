@@ -1,7 +1,6 @@
-package ru.job4j.dreamjob.model;
+package ru.job4j.model;
 
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 

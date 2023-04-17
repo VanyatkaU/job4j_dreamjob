@@ -1,9 +1,8 @@
-package ru.job4j.dreamjob.dreamjob.repository;
+package ru.job4j.dreamjob.repository;
 
 import org.sql2o.Sql2o;
-import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.model.Vacancy;
-import ru.job4j.dreamjob.repository.CandidateRepository;
+import ru.job4j.model.Candidate;
+import ru.job4j.repository.CandidateRepository;
 
 import java.util.Collection;
 import java.util.Optional;
@@ -80,7 +79,7 @@ public class Sql2oCandidateRepository implements CandidateRepository {
     public Collection<Candidate> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM candidates");
-            return query.setColumnMappings(Vacancy.COLUMN_MAPPING).executeAndFetch(Candidate.class);
+            return query.setColumnMappings(Candidate.COLUMN_MAPPING).executeAndFetch(Candidate.class);
         }
     }
 }
