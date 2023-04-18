@@ -1,5 +1,4 @@
 package ru.job4j.dreamjob.configuration;
-
 import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;

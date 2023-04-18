@@ -1,10 +1,9 @@
-package ru.job4j.service;
+package ru.job4j.dreamjob.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.dto.FileDto;
-import ru.job4j.dreamjob.service.FileService;
-import ru.job4j.model.Candidate;
-import ru.job4j.repository.CandidateRepository;
+import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.dreamjob.repository.CandidateRepository;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Collection;
@@ -39,7 +38,7 @@ public class SimpleCandidateService implements CandidateService {
     public boolean deleteById(int id) {
         var fileOptional = findById(id);
         if (fileOptional.isEmpty()) {
-            return  false;
+            return false;
         }
         var isDeleted = candidateRepository.deleteById(id);
         fileService.deleteById(fileOptional.get().getFileId());
