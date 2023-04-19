@@ -1,9 +1,10 @@
-package ru.job4j.dreamjob.service;
+package ru.job4j.service;
 
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.dto.FileDto;
-import ru.job4j.dreamjob.model.Vacancy;
-import ru.job4j.dreamjob.repository.VacancyRepository;
+import ru.job4j.dreamjob.service.FileService;
+import ru.job4j.model.Vacancy;
+import ru.job4j.repository.VacancyRepository;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.util.Collection;
@@ -17,8 +18,8 @@ public class SimpleVacancyService implements VacancyService {
 
     private final FileService fileService;
 
-    public SimpleVacancyService(VacancyRepository sql2oVacancyRepository,
-                                FileService fileService) {
+    private SimpleVacancyService(VacancyRepository sql2oVacancyRepository,
+                                 FileService fileService) {
         this.vacancyRepository = sql2oVacancyRepository;
         this.fileService = fileService;
     }

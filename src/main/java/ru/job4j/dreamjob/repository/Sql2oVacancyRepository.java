@@ -1,13 +1,12 @@
 package ru.job4j.dreamjob.repository;
 
-import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
-import ru.job4j.dreamjob.model.Vacancy;
+import ru.job4j.model.Vacancy;
+import ru.job4j.repository.VacancyRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-@Repository
 public class Sql2oVacancyRepository implements VacancyRepository {
 
     private final Sql2o sql2o;
@@ -85,5 +84,4 @@ public class Sql2oVacancyRepository implements VacancyRepository {
             return query.setColumnMappings(Vacancy.COLUMN_MAPPING).executeAndFetch(Vacancy.class);
         }
     }
-
 }

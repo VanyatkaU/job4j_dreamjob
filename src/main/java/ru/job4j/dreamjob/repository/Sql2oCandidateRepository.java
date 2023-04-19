@@ -1,13 +1,12 @@
 package ru.job4j.dreamjob.repository;
 
-import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
-import ru.job4j.dreamjob.model.Candidate;
+import ru.job4j.model.Candidate;
+import ru.job4j.repository.CandidateRepository;
 
 import java.util.Collection;
 import java.util.Optional;
 
-@Repository
 public class Sql2oCandidateRepository implements CandidateRepository {
 
     private final Sql2o sql2o;
@@ -20,9 +19,9 @@ public class Sql2oCandidateRepository implements CandidateRepository {
     public Candidate save(Candidate candidate) {
         try (var connection = sql2o.open()) {
             var sql = """
-                      INSERT INTO candidates(title, description, creation_date, city_id, file_id)
-                      VALUES (:title, :description, :creationDate, :cityId, :fileId)
-                      """;
+                      INSERT INTO candidates(name, description, creation_date, city_id, file_id)
+                      VALUES (:name, :description, :creationDate, :cityId, :fileId)
+                    """;
             var query = connection.createQuery(sql, true)
                     .addParameter("name", candidate.getName())
                     .addParameter("description", candidate.getDescription())
@@ -38,7 +37,7 @@ public class Sql2oCandidateRepository implements CandidateRepository {
     @Override
     public boolean deleteById(int id) {
         try (var connection = sql2o.open()) {
-            var query = connection.createQuery("DELETE FROM candidates WHERE id = :id");
+            var query = connection.createQuery("DELETE FROM candidates WHERE id= :id");
             query.addParameter("id", id);
             var affectedRows = query.executeUpdate().getResult();
             return affectedRows > 0;
@@ -54,8 +53,8 @@ public class Sql2oCandidateRepository implements CandidateRepository {
                         city_id = :cityId, file_id = :fileId
                     WHERE id = :id
                     """;
-            var query = connection.createQuery(sql)
-                    .addParameter("title", candidate.getName())
+            var query = connection.createQuery(sql, true)
+                    .addParameter("name", candidate.getName())
                     .addParameter("description", candidate.getDescription())
                     .addParameter("creationDate", candidate.getCreationDate())
                     .addParameter("cityId", candidate.getCityId())
