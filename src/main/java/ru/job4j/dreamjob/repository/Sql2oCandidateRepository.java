@@ -2,7 +2,6 @@ package ru.job4j.dreamjob.repository;
 
 import org.sql2o.Sql2o;
 import ru.job4j.model.Candidate;
-import ru.job4j.repository.CandidateRepository;
 
 import java.util.Collection;
 import java.util.Optional;
