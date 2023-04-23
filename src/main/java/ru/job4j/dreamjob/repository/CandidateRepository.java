@@ -1,6 +1,6 @@
 package ru.job4j.dreamjob.repository;
 
-import ru.job4j.model.Candidate;
+import ru.job4j.dreamjob.model.Candidate;
 
 import java.util.Collection;
 import java.util.Optional;

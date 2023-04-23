@@ -1,7 +1,7 @@
-package ru.job4j.repository;
+package ru.job4j.dreamjob.repository;
 
 import org.springframework.stereotype.Repository;
-import ru.job4j.model.Vacancy;
+import ru.job4j.dreamjob.model.Vacancy;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.time.LocalDateTime;

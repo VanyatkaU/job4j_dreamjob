@@ -1,4 +1,4 @@
-package ru.job4j.controller;
+package ru.job4j.dreamjob.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.service.CityService;
-import ru.job4j.model.Vacancy;
-import ru.job4j.service.VacancyService;
+import ru.job4j.dreamjob.model.Vacancy;
+import ru.job4j.dreamjob.service.VacancyService;
 
 import javax.annotation.concurrent.ThreadSafe;
 import java.io.IOException;
