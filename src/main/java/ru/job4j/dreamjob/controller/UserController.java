@@ -18,7 +18,6 @@ public class UserController {
 
     public final UserService userService;
 
-
     public UserController(UserService userService) {
         this.userService = userService;
     }
@@ -31,7 +30,7 @@ public class UserController {
     @PostMapping("/register")
     public String register(Model model, @ModelAttribute User user) {
         var savedUser = userService.save(user);
-        if (savedUser.isPresent()) {
+        if (savedUser.isEmpty()) {
             model.addAttribute("message", "Пользователь с такой почтой уже существует");
             return "errors/404";
         }

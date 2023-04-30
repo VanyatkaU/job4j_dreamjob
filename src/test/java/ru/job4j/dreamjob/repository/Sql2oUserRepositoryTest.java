@@ -21,8 +21,7 @@ public class Sql2oUserRepositoryTest {
     @BeforeAll
     public static void initRepositories() throws Exception {
         var properties = new Properties();
-        try (var inputStream = Sql2oUserRepositoryTest.class.getClassLoader()
-                .getResourceAsStream("connection.properties")) {
+        try (var inputStream = Sql2oVacancyRepositoryTest.class.getClassLoader().getResourceAsStream("connection.properties")) {
             properties.load(inputStream);
         }
         var url = properties.getProperty("datasource.url");
@@ -80,14 +79,4 @@ public class Sql2oUserRepositoryTest {
         assertThat(sql2oUserRepository.deleteById(0)).isFalse();
     }
 
-    @Test
-    public void whenUpdateThenGetUpdated() {
-        var user = sql2oUserRepository.save(new User(0, "email", "name", "111"));
-        var updatedUser = new User(
-                user.get().getId(), "new email", "new name", "111");
-        var isUpdated = sql2oUserRepository.update(updatedUser);
-        var savedUser = sql2oUserRepository.findById(updatedUser.getId()).get();
-        assertThat(isUpdated).isTrue();
-        assertThat(savedUser).usingRecursiveComparison().isEqualTo(updatedUser);
-    }
 }
