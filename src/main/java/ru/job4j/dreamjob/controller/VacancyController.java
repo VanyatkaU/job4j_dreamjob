@@ -10,15 +10,12 @@ import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.service.VacancyService;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.io.IOException;
 
 @ThreadSafe
 @Controller
 @RequestMapping("/vacancies")
 public class VacancyController {
-
     private final VacancyService vacancyService;
-
     private final CityService cityService;
 
     public VacancyController(VacancyService vacancyService, CityService cityService) {
@@ -39,15 +36,15 @@ public class VacancyController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Vacancy vacancy,
-                         @RequestParam MultipartFile file) {
+    public String create(@ModelAttribute Vacancy vacancy, @RequestParam MultipartFile file,
+                         Model model) {
         try {
-            vacancyService.update(vacancy,
-                    new FileDto(file.getOriginalFilename(), file.getBytes()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            vacancyService.save(vacancy, new FileDto(file.getOriginalFilename(), file.getBytes()));
+            return "redirect:/vacancies";
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "errors/404";
         }
-        return "redirect:/vacancies";
     }
 
     @GetMapping("/{id}")
@@ -63,20 +60,21 @@ public class VacancyController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute Vacancy vacancy,
-                         @RequestParam MultipartFile file, Model model) {
+    public String update(@ModelAttribute Vacancy vacancy, @RequestParam MultipartFile file,
+                         Model model) {
         boolean isUpdated;
         try {
-            isUpdated = vacancyService.update(vacancy,
-                    new FileDto(file.getOriginalFilename(), file.getBytes()));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        if (!isUpdated) {
-            model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
+            isUpdated = vacancyService.update(vacancy, new FileDto(file.getOriginalFilename(),
+                    file.getBytes()));
+            if (!isUpdated) {
+                model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
+                return "errors/404";
+            }
+            return "redirect:/vacancies";
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
             return "errors/404";
         }
-        return "redirect:/vacancies";
     }
 
     @GetMapping("/delete/{id}")

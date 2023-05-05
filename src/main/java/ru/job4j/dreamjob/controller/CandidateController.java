@@ -10,7 +10,6 @@ import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
 
 import javax.annotation.concurrent.ThreadSafe;
-import java.io.IOException;
 
 @ThreadSafe
 @Controller
@@ -39,12 +38,14 @@ public class CandidateController {
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Candidate candidate, @RequestParam MultipartFile file) {
+    public String create(@ModelAttribute Candidate candidate, @RequestParam MultipartFile file,
+                         Model model) {
         try {
             candidateService.save(candidate, new FileDto(file.getOriginalFilename(), file.getBytes()));
             return "redirect:/candidates";
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+        } catch (Exception e) {
+            model.addAttribute("message", e.getMessage());
+            return "errors/404";
         }
 
     }
