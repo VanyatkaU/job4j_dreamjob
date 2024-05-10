@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
-import org.sql2o.Sql2oException;
 import ru.job4j.dreamjob.model.User;
 
 import java.util.Collection;
@@ -35,8 +34,8 @@ public class Sql2oUserRepository implements UserRepository {
             int generatedId = query.executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
             return Optional.of(user);
-        } catch (Sql2oException e) {
-            LOG.error("Пользователь с такой почтой уже существует", e);
+        } catch (Exception e) {
+            LOG.info("Пользователь с такой почтой уже существует", e);
         }
         return Optional.empty();
     }
@@ -51,11 +50,12 @@ public class Sql2oUserRepository implements UserRepository {
             var query = connection.createQuery(sql)
                     .addParameter("email", email)
                     .addParameter("password", password);
-            var user = query.executeAndFetchFirst(User.class);
+            var user = query.setColumnMappings(User.COLUMN_MAPPING).executeAndFetchFirst(User.class);
             return Optional.ofNullable(user);
         }
     }
 
+    @Override
     public boolean deleteById(int id) {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("DELETE FROM users WHERE id = :id")
@@ -65,6 +65,7 @@ public class Sql2oUserRepository implements UserRepository {
         }
     }
 
+    @Override
     public Collection<User> findAll() {
         try (var connection = sql2o.open()) {
             var query = connection.createQuery("SELECT * FROM users");
